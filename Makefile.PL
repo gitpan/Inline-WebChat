@@ -5,7 +5,7 @@ WriteMakefile(
     'NAME'		=> 'Inline::WebChat',
     'VERSION_FROM'	=> 'WebChat.pm', # finds $VERSION
     'PREREQ_PM'		=> {
-				WWW::Chat => 0.6,
+				WWW::Chat::Processor => 0.62,
 				Inline    => 0.1,
 			    }, # e.g., Module::Name => 1.1
 );
