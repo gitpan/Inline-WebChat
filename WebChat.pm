@@ -1,5 +1,5 @@
 package Inline::WebChat;
-$VERSION = '0.61';
+$VERSION = '0.62';
 require Inline;
 @ISA = qw(Inline);
 use strict;
@@ -116,6 +116,8 @@ sub get_site
 	return @links;
 }
 
+
+
 =head1 DESCRIPTION
 
 C<Inline::WebChat> is a module for letting you embed WebChat scripts in your Perl scripts.
@@ -155,6 +157,49 @@ or
 
     bind Inline WebChat => ...;
 
+
+=head1 USING MORE THAN ONE SUBROUTINE / USING THE MODULE WITH Test::More
+
+Apparently there are problems using Inline::Webchat with more than one subroutine. 
+
+This is a work around from Richard Clamp (bless his cotton socks) which isn't perfect but, as he so delightfully puts it "I imagine getting it to work correctly requires the ability to parse webchat augmented perl.  The thought of that hurts my brain."
+
+If anybody can figure out a better way to do it then please tell me. I need to do more testing on this.
+
+#!perl -w                                                                                                                                                    use strict;
+
+use Test::More tests => 2;
+use TestConfig;
+
+use Inline 'WebChat' => <<SCRIPT;
+
+sub is_up {
+    GET $TestConfig::site
+    EXPECT OK
+    return 1
+
+}
+
+SCRIPT
+
+is(is_up(), 1, "site is up");
+
+use Inline 'WebChat' => <<SCRIPT;
+
+sub will_404 {
+    GET $TestConfig::site/four_oh_four
+    EXPECT ERROR
+    return 1;
+
+}                                                                                                                                                            
+
+
+SCRIPT
+
+is(will_404, 1, "404s $TestConfig::site/four_oh_four");
+
+__END__          
+
 =head1 BUGS AND DEFICIENCIES
 
 =over 4
@@ -169,7 +214,7 @@ o Could do with some more examples
 
 =item 
 
-o I'm not happy with the whole WebChat design in general - I mean, I had to patch it to get it working witht his in the first place. Hmm, maybe when I have more time.
+o I'm not happy with the whole WebChat design in general - I mean, I had to patch it to get it working with  his in the first place. Hmm, maybe when I have more time.
 
 =back
 
@@ -190,7 +235,7 @@ To subscribe, send email to inline-subscribe@perl.org
 
 =head1 AUTHOR
 
-Simon Wistow <simon@thegestlt.org>
+Simon Wistow <simon@thegestalt.org>
 
 =head1 COPYRIGHT
 
