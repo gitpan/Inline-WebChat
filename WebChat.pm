@@ -1,5 +1,5 @@
 package Inline::WebChat;
-$VERSION = '0.05';
+$VERSION = '0.6';
 require Inline;
 @ISA = qw(Inline);
 use strict;

@@ -1,5 +1,8 @@
 Revision history for Perl extension Inline::WebChat.
 
+0.6   later
+	- up the version number to sort out some problems
+ 
 0.5   Sat Aug 11 20:43:27 2001
 	- actually written now, tests done, docs written
 
